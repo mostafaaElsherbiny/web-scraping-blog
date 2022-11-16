@@ -1,0 +1,7 @@
+    comment_cleanup:
+        # Cleanup every night at 11.50 pm (UTC).
+        spec: '50 23 * * *'
+        cmd: |
+            if [ "$PLATFORM_BRANCH" = "master" ]; then
+                croncape symfony console app:news:sync
+            fi

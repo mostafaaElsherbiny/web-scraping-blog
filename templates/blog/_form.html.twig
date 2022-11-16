@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="form-group">
+	{{ form_row(form.title, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(form.body, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group">
+	{{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+	{% if form.vars.value.image %}
+		<img src="{{ asset('/uploads/blogs/' ~ form.vars.value.image) }}"/>
+	{% endif %}
+
+</div>
+<button class="btn {{ button_color|default('btn-outline-primary') }}  mt-3">
+	{{ button_label|default('Save Blog') }}
+</button>
+{{ form_end(form) }}

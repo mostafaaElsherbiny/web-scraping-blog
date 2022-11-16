@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog index
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h2 class="text-center mt-5 mb-3">
+			Blog Manager</h2>
+		<div class="card">
+			<div class="card-header">
+				<a class="btn btn-outline-primary" href="{{ path('app_logout') }}">
+					Logout
+				</a>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Title</th>
+							<th>Body</th>
+							<th>Image</th>
+							<th>Created_at</th>
+							<th>Updated_at</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for blog in paginator.items %}
+							<tr>
+								<td>{{ blog.id }}</td>
+								<td>{{ blog.title }}</td>
+								<td>{{ blog.body }}</td>
+								<td>
+									{% if blog.image %}
+										<img width="100" src="{{ blog.image }}"/>
+									{% endif %}
+								</td>
+
+								<td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+
+								<td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+								{% if is_granted('ROLE_ADMIN') %}
+									<td>
+										{{ include('blog/_delete_form.html.twig') }}
+									</td>
+								{% endif %}
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="7">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				{% include 'paginator.html.twig' %}
+
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

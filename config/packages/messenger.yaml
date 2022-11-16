@@ -1,0 +1,15 @@
+framework:
+    messenger:
+        # failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+              
+            # sync: 'sync://'
+
+        routing:
+            'App\Message\NewsSync': async
+
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async
